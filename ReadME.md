@@ -68,6 +68,10 @@ Most of the dataset we use in the experiment can be downloaded automatically in 
     - For the evaluation on our real-world example, you can need to download the ImageNette and ImageWoof dataset [here](https://github.com/fastai/imagenette), and download the prohibited dataset--military vehicle dataset [here](https://www.kaggle.com/datasets/amanrajbose/millitary-vechiles). 
 **NOTE**: for the image datasets, you should change the model input size to $224$.
 
+
+### Pre-trained Models 
+We provide the unprotected pretrained models [here](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing)
+
 ### Run the tests:
 We provide several scripts to run the experiments:
 ----
