@@ -1,6 +1,14 @@
 ## Artifacts: 
-
 ### Probe-Me-NOT: Protecting Pre-trained Encoders from Malicious Probing
+
+### Abstract
+Adapting pre-trained deep learning models to customized tasks has become a popular choice for developers to cope with limited computational resources and data volume.
+In this work, we propose a novel applicability authorization method, EncoderLock, against malicious probing (e.g., fine-tune the downstream heads of the pre-trained encoder on prohibited domains).
+We propose three different levels of EncoderLocks for different dataset accessbilities, namely supervised, unsupervised and zero-shot EncoderLocks.
+Specifically, supervised EncoderLocks leverage the labelled prohibited domains while unsupervised and zero-shot EncoderLocks focus on prohibited datasets or synthetic datasets without labels.
+Therefore, in this packaged artifacts, we provide the source code for these two scenarios. 
+After preparing the datasets and the victim pre-trained models, we recommend running the scripts in `test` directory, where we provide examples of training and evaluating the EncoderLock for both training with and without labeled datasets.
+
 
 ### Environments:
 We run the EncoderLock on a server:
@@ -13,7 +21,7 @@ We run the EncoderLock on a server:
 - Pytorch Version: 1.12.1+cu102
 
 To automatically install the required packages, run following code in the conda environment:
-    `conda env create -f environment.yml`
+    ```conda env create -f environment.yml```
 
 ### Direcotry structure:
 ```
