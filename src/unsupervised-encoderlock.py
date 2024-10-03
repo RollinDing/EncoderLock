@@ -71,7 +71,7 @@ def accuracy(output, target, topk=(1, )):
 
 
 def save_feature_extractor(args, model):
-    save_path = "modified_models/unsupervised/" + f'{args.arch}-{args.dataset}-{args.std_dataset}'
+    save_path = "modified_models/unsupervised/" + f'{args.arch}--{args.dataset}--{args.std_dataset}'
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     torch.save(model.state_dict(), save_path + f'/feature_extractor.pth')
@@ -719,10 +719,10 @@ def main(args):
             tgt_loss, tgt_acc = evaluate_feature_extractor(feature_extractor, new_target_classifier, target_test_loader, criterion, device, model_name)
             print("Evaluate target accuracy: ", tgt_acc)
             # Save the encoder for this round 
-            save_path = "modified_models/unsupervised/" + f'{args.arch}-{args.dataset}-{args.std_dataset}'
+            save_path = "modified_models/unsupervised/" + f'{args.arch}--{args.dataset}--{args.std_dataset}'
             if not os.path.exists(save_path):
                 os.makedirs(save_path)
-            torch.save(feature_extractor.state_dict(), save_path + f'/feature_extractor-R={i}.pth')
+            torch.save(feature_extractor.state_dict(), save_path + f'/feature_extractor.pth')
             if src_acc - tgt_acc > best_acc_difference:
                 best_acc_difference = src_acc - tgt_acc
                 best_feature_extractor = copy.deepcopy(feature_extractor)

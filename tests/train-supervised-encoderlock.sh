@@ -1,7 +1,7 @@
 #/bin/bash
 
 # Source model configuration
-arch='vgg11'
+arch='resnet18'
 dataset="mnist"
 # Target model configuration
 std_dataset="usps"

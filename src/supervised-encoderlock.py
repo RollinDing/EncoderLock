@@ -29,7 +29,7 @@ def accuracy(output, target, topk=(1, )):
         return res
 
 def save_feature_extractor(args, model):
-    save_path = "modified_models/" + f'{args.arch}--{args.dataset}--{args.std_dataset}'
+    save_path = "modified_models/supervised/" + f'{args.arch}--{args.dataset}--{args.std_dataset}'
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     torch.save(model.state_dict(), save_path + f'/feature_extractor.pth')
@@ -640,7 +640,10 @@ def main(args):
             )
             new_source_classifier.to(device)
             new_target_classifier.to(device)
-        
+        elif model_name == 'resnet18':
+            new_target_classifier = nn.Linear(512, target_num_classes)
+            new_target_classifier.to(device)
+
         print("Retrain Target Classifier")
         logging.info("Self-challenging retraining Target Classifier: \n")
         start_time = time.time()
