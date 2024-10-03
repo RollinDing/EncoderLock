@@ -13,7 +13,7 @@ We run the EncoderLock on a server:
 - Pytorch Version: 1.12.1+cu102
 
 To automatically install the required packages, run following code in the conda environment:
-    `conda `
+    `conda env create -f environment.yml`
 
 ### Direcotry structure:
 ```
@@ -45,7 +45,11 @@ EncoderLock
     |
     |--tests: test scripts
         |
+        |--evaluate-encoder.sh
         |
+        |--train-supervised-encoderlock.sh
+        |
+        |--train-unsupervised-encoderlock.sh
 ```
 
 ### Datasets
