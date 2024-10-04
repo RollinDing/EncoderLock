@@ -1,31 +1,14 @@
 name: encoderlock
 channels:
+  - pypi
   - conda-forge
-  - defaults
 dependencies:
-  - cudatoolkit=11.3
-  - torchvision
-  - torchaudio
-  - tqdm
-  - scipy
-  - numpy
-  - matplotlib
-  - opencv
-  - lpips
-  - cleverhans
-  - six
-  - astunparse
-  - dataclasses
-  - setuptools
-  - pyyaml
-  - cmake
-  - cffi
-  - requests
-  - ninja
-  - future
-  - mkl-include
-  - mkl
-  - onnx
-  - tsne
-  - brokenaxes
-  - transformers
+  - python=3.9
+  - tqdm=4.64.1
+  - pip 
+  - scipy=1.9.1
+  - numpy=1.24.4
+  - matplotlib=3.6.0
+  - pip:
+    - torch==1.12.1  
+    - torchvision==0.13.1

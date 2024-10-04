@@ -1,2 +1,4 @@
 data/
 pretrained_models/
+logs/
+__pycache__/
