@@ -14,13 +14,77 @@ We run the EncoderLock on a server:
 - Python Version: 3.9.13
 - Pytorch Version: 1.12.1+cu102
 
-To automatically install the required packages, run following code in the conda environment:
+To automatically install the required packages, run the following code in the conda environment:
     ```conda env create -f environment.yml```
 
-### How to evaluate:
-We provide scripts and checkpoints to evaluate the experiment results.
-The saved checkpoints can be found in `modified_models`.
-These modified models are encoders with EncoderLock which shows significant accuracy degradation on the target domain (prohibited domain) but preserves a high accuracy on the source domain (authorized domain).
+### Quick Evaluation:
+We provide 12 protected encoders with supervised and unsupervised EncoderLock. The saved checkpoints can be found in `modified_models`.
+Note that you should download [unprotected models](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing) and put them in a folder `./pretrained_models`. 
+
+- **Step 1** Prepare for the environment, datasets, and pre-trained models.
+- **Step 2** Check the availability of protected encoders in `modified_models`;
+- **Step 3**Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
+- **Step 4** Run script
+
+          bash tests/evaluate-encoder.sh
+
+These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
+
+### Datasets
+Most of the dataset we use in the experiment can be downloaded automatically in the torchvision package, 
+- including: 
+    - Digits:
+        - MNIST
+        - USPS
+        - SVHN
+        - MNISTM
+        - SYN
+    - Simple Images:
+        - CIFAR10
+        - EMNIST
+        - STL10
+
+    - For the evaluation on our real-world example, you can need to download the ImageNette and ImageWoof dataset [here](https://github.com/fastai/imagenette), and download the prohibited dataset--military vehicle dataset [here](https://www.kaggle.com/datasets/amanrajbose/millitary-vechiles). 
+**NOTE**: for the image datasets, you should change the model input size to $224$.
+
+
+### Pre-trained Models 
+We provide the unprotected pretrained models [here](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing)
+
+### Train and Test EncoderLock from scratch:
+We provide several scripts to run the experiments:
+
+----
+1. Train the Supervised EncoderLock:
+    - Before running the EncoderLock, make sure you have the pre-trained victim model to protect and save that in `pretrained_models`. For instance, we provide a pre-trained model checkpoint in `pretrained_models/mnist_vgg11_30`, which is fine-tuned from the pytorch pre-trained VGG11 with mnist dataset for 30 epochs.
+
+    - To run the training process of Supervised EncoderLock, simply run:
+
+            bash tests/train-supervised-encoderlock.sh
+
+        the script will automatically run supervised EncoderLock and save the modified models in `modified models/supervised/vgg11--mnist-usps`. And it will also save the training logs in `logs/supervised/`. The log will provide information about the accuracy for both source and target domains for each epoch and number of modified weights for each round.
+
+    - You can also change the source (authorized) and target (prohibited) domains in this script by modify `dataset` (for source, and make sure you have the pretrained model!) or `std_dataset` for the target domain. You can also chagne the model architectures.
+    Furthermore, you are able to adjust the hyperparameters including E, R and data volume, that discussed in ablation study of our manuscript.
+----
+2. Train the Unsupervised EncoderLock/Zero-shot EncoderLock
+    Similar to the supervised EncoderLock, to run training process of unsupervised EncoderLock, using 
+
+            bash tests/train-unsupervised-encoderlock.sh
+
+    For zero-shot EncoderLock, you need generate a synthetic dataset first.
+
+----
+3. Evaluate modified encoders
+    - Once you have the modified model, we offer scripts to evaluate it, simply run 
+          ```bash evaluate-encoder.sh```
+
+    - Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between 
+        - `example-supervised`
+        - `example-unsupervised`  
+        - `supervised`
+        - `unsupervised`
+        to choose the modified encoder to evaluate
 
 ### Directory structure:
 ```
@@ -59,61 +123,4 @@ EncoderLock
         |--train-unsupervised-encoderlock.sh
 ```
 
-### Datasets
-Most of the dataset we use in the experiment can be downloaded automatically in the torchvision package, 
-- including: 
-    - Digits:
-        - MNIST
-        - USPS
-        - SVHN
-        - MNISTM
-        - SYN
-    - Simple Images:
-        - CIFAR10
-        - EMNIST
-        - STL10
-
-    - For the evaluation on our real-world example, you can need to download the ImageNette and ImageWoof dataset [here](https://github.com/fastai/imagenette), and download the prohibited dataset--military vehicle dataset [here](https://www.kaggle.com/datasets/amanrajbose/millitary-vechiles). 
-**NOTE**: for the image datasets, you should change the model input size to $224$.
-
-
-### Pre-trained Models 
-We provide the unprotected pretrained models [here](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing)
-
-### Run the tests:
-We provide several scripts to run the experiments:
-
-----
-1. Train the Supervised EncoderLock:
-    - Before running the EncoderLock, make sure you have the pre-trained victim model to protect and save that in `pretrained_models`. For instance, we provide a pre-trained model checkpoint in `pretrained_models/mnist_vgg11_30`, which is fine-tuned from the pytorch pre-trained VGG11 with mnist dataset for 30 epochs.
-
-    - To run the training process of Supervised EncoderLock, simply run:
-
-            bash tests/train-supervised-encoderlock.sh
-
-        the script will automatically run supervised EncoderLock and save the modified models in `modified models/supervised/vgg11--mnist-usps`. And it will also save the training logs in `logs/supervised/`. The log will provide information about the accuracy for both source and target domains for each epoch and number of modified weights for each round.
-
-    - You can also change the source (authorized) and target (prohibited) domains in this script by modify `dataset` (for source, and make sure you have the pretrained model!) or `std_dataset` for the target domain. You can also chagne the model architectures.
-    Furthermore, you are able to adjust the hyperparameters including E, R and data volume, that discussed in ablation study of our manuscript.
-----
-2. Train the Unsupervised EncoderLock/Zero-shot EncoderLock
-    Similar to the supervised EncoderLock, to run training process of unsupervised EncoderLock, using 
-
-            bash tests/train-unsupervised-encoderlock.sh
-
-    For zero-shot EncoderLock, you need generate a synthetic dataset first.
-
-----
-3. Evaluate modified encoders
-    - Once you have the modified model, we offer scripts to evaluate it, simply run 
-          ```bash evaluate-encoder.sh```
-
-    - Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between 
-        - `example-supervised`
-        - `example-unsupervised`  
-        - `supervised`
-        - `unsupervised`
-        to choose the modified encoder to evaluate
-
-    - We provide $6$ pre-trained encoders with supervised and unsupervised EncoderLock that is used in our experiments results, based on the `mnist` dataset as the source. Note that you should train the unprotected model and put it in `pretrained_models' first to do the further evaluation as well. 
 
