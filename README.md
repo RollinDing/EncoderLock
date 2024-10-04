@@ -18,7 +18,7 @@ To automatically install the required packages, run the following code in the co
     ```conda env create -f environment.yml```
 
 ### Quick Evaluation:
-We provide 12 protected encoders with supervised and unsupervised EncoderLock. Note that you should download [unprotected models](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing) and put them in a folder `pretrained_models\`. The saved checkpoints can be found in `modified_models`.
+We provide 12 protected encoders with supervised and unsupervised EncoderLock. Note that you should download [unprotected models](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing) and put them in a folder `./pretrained_models`. The saved checkpoints can be found in `modified_models`.
 These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
 
 - **Step 1** Prepare for the environment, datasets, and pre-trained models.
