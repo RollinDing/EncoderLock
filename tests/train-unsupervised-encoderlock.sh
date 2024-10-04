@@ -16,12 +16,13 @@ learning_rate=0.01
 data_path='./data/'
 pretrained_path=./pretrained_models/${dataset}_${arch}_${epochs}
 
+# number of critical weights
 N=100
-M=1
-U=10
-optim_lr=1e-2
+# loss function hyperparameter
 alpha=1e3
+# number of epoch for critical weight update
 E=40
+# Number of round
 R=100
 volume=0.1
 
@@ -30,4 +31,4 @@ python src/unsupervised-encoderlock.py --arch ${arch} --dataset ${dataset} --std
      --epochs ${epochs} --learning_rate ${learning_rate} --batch_size ${batch_size}\
     --schedule 15 25  --gammas 0.1 0.1 \
     --resume ${pretrained_path}/checkpoint.pth \
-    --N ${N} --M ${M} --U ${U} --optim-lr ${optim_lr} --E ${E} --R ${R} --alpha ${alpha} --volume ${volume}
+    --N ${N} --E ${E} --R ${R} --alpha ${alpha} --volume ${volume}

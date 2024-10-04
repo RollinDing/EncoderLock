@@ -150,7 +150,7 @@ def parse_args():
     parser.add_argument('--N', type=int, default=100, help='number of weights selected')
     parser.add_argument('--M', type=int, default=1, help='number of important layers selected')
     parser.add_argument('--optim-lr', type=float, default=0.01, help='learning rate for optimization')
-    parser.add_argument('--U', type=float, default=1, help='upper bound of target loss')
+    parser.add_argument('--U', type=float, default=10, help='upper bound of target loss')
     parser.add_argument('--alpha', type=float, default=0.1, help='weight for the regularization term')
     parser.add_argument('--E', type=int, default=10, help='number of epochs for optimization')
     parser.add_argument('--R', type=int, default=10, help='number of round per epoch')
