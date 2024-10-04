@@ -25,43 +25,6 @@ These modified models are encoders with EncoderLock, which shows significant acc
 - **Step 2** Check the available hardened encoders in `modified_models`; Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
 - **Step 3** Run script `bash evaluate-encoder.sh`
 
-### Directory structure:
-```
-EncoderLock
-    |
-    |--data: datasets used in the experiment
-    |
-    |--pretrained_models: pretrained models (encoders)
-    |
-    |--modified_models: protected encoders using EncoderLock
-    |
-    |--src: source code main directory
-        |
-        |--utils:
-            |
-            |--argparser.py
-            |
-            |--data.py
-            |
-            |--utils.py
-        |
-        |--evaluate:
-            |
-            |--evaluate-encoder.py
-        |
-        |--supervised-encoderlock.py
-        |
-        |--unspervised-encoderlock.py
-    |
-    |--tests: test scripts
-        |
-        |--evaluate-encoder.sh
-        |
-        |--train-supervised-encoderlock.sh
-        |
-        |--train-unsupervised-encoderlock.sh
-```
-
 ### Datasets
 Most of the dataset we use in the experiment can be downloaded automatically in the torchvision package, 
 - including: 
@@ -118,5 +81,41 @@ We provide several scripts to run the experiments:
         - `unsupervised`
         to choose the modified encoder to evaluate
 
+### Directory structure:
+```
+EncoderLock
+    |
+    |--data: datasets used in the experiment
+    |
+    |--pretrained_models: pretrained models (encoders)
+    |
+    |--modified_models: protected encoders using EncoderLock
+    |
+    |--src: source code main directory
+        |
+        |--utils:
+            |
+            |--argparser.py
+            |
+            |--data.py
+            |
+            |--utils.py
+        |
+        |--evaluate:
+            |
+            |--evaluate-encoder.py
+        |
+        |--supervised-encoderlock.py
+        |
+        |--unspervised-encoderlock.py
+    |
+    |--tests: test scripts
+        |
+        |--evaluate-encoder.sh
+        |
+        |--train-supervised-encoderlock.sh
+        |
+        |--train-unsupervised-encoderlock.sh
+```
 
 
