@@ -80,7 +80,7 @@ Most of the dataset we use in the experiment can be downloaded automatically in 
 ### Pre-trained Models 
 We provide the unprotected pretrained models [here](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing)
 
-### Run the tests:
+### Run Experiments:
 We provide several scripts to run the experiments:
 
 ----
