@@ -18,12 +18,15 @@ To automatically install the required packages, run the following code in the co
     ```conda env create -f environment.yml```
 
 ### Quick Evaluation:
-We provide 12 protected encoders with supervised and unsupervised EncoderLock. Note that you should download [unprotected models](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing) and put them in a folder `./pretrained_models`. The saved checkpoints can be found in `modified_models`.
-These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
+We provide 12 protected encoders with supervised and unsupervised EncoderLock. The saved checkpoints can be found in `modified_models`.
+Note that you should download [unprotected models](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing) and put them in a folder `./pretrained_models`. 
 
 - **Step 1** Prepare for the environment, datasets, and pre-trained models.
-- **Step 2** Check the available hardened encoders in `modified_models`; Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
-- **Step 3** Run script `bash evaluate-encoder.sh`
+- **Step 2** Check the availability of protected encoders in `modified_models`;
+- **Step 3**Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
+- **Step 4** Run script `bash evaluate-encoder.sh`
+
+These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
 
 ### Datasets
 Most of the dataset we use in the experiment can be downloaded automatically in the torchvision package, 
