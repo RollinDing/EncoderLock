@@ -17,7 +17,12 @@ We run the EncoderLock on a server:
 To automatically install the required packages, run following code in the conda environment:
     ```conda env create -f environment.yml```
 
-### Direcotry structure:
+### How to evaluate:
+We provide scripts and checkpoints to evaluate the experiment results.
+The saved checkpoints can be found in `modified_models`.
+These modified models are encoders with EncoderLock which shows significant accuracy degradation on the target domain (prohibited domain) but preserves a high accuracy on the source domain (authorized domain).
+
+### Directory structure:
 ```
 EncoderLock
     |
@@ -66,6 +71,7 @@ Most of the dataset we use in the experiment can be downloaded automatically in 
     - Simple Images:
         - CIFAR10
         - EMNIST
+        - STL10
 
     - For the evaluation on our real-world example, you can need to download the ImageNette and ImageWoof dataset [here](https://github.com/fastai/imagenette), and download the prohibited dataset--military vehicle dataset [here](https://www.kaggle.com/datasets/amanrajbose/millitary-vechiles). 
 **NOTE**: for the image datasets, you should change the model input size to $224$.
@@ -100,7 +106,7 @@ We provide several scripts to run the experiments:
 ----
 3. Evaluate modified encoders
     - Once you have the modified model, we offer scripts to evaluate it, simply run 
-            bash evaluate-encoder.sh
+          ```bash evaluate-encoder.sh```
 
     - Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between 
         - `example-supervised`
