@@ -1,11 +1,11 @@
 #/bin/bash
 
-# Choose between arch [resnet18, vgg11]
-arch='resnet18'
+# Choose between arch [vgg11, resnet18]
+arch='vgg11'
 # Source model configuration
 dataset="mnist"
 # Target model configuration
-std_dataset="usps"
+std_dataset="svhn"
 # Choose between ['example-supervised', 'example-unsupervised', 'supervised', 'unsupervised']
 level='example-supervised' 
 
@@ -20,11 +20,9 @@ learning_rate=0.01
 data_path='./data/'
 pretrained_path=./pretrained_models/${dataset}_${arch}_${epochs}
 
-# Ns=(1 2 3 5 8)
 M=1
 U=10
 optim_lr=1e-2
-# alphas=(10 100 1000 1e4 1e5)
 alpha=10
 E=200
 R=5
@@ -36,4 +34,4 @@ python src/evaluate/evaluate-encoder.py --arch ${arch} --dataset ${dataset} --st
     --epochs ${epochs} --learning_rate ${learning_rate} --batch_size ${batch_size}\
     --schedule 15 25  --gammas 0.1 0.1 \
     --resume ${pretrained_path}/checkpoint.pth \
-    --N ${N} --M ${M} --U ${U} --optim-lr ${optim_lr} --E ${E} --R ${R} --alpha ${alpha}
+    --N ${N} --M ${M} --U ${U} --optim-lr ${optim_lr} --E ${E} --R ${R} --alpha ${alpha} --level ${level}

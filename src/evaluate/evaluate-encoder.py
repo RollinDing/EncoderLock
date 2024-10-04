@@ -148,10 +148,7 @@ def transfer_learning(args, feature_extractor, classifier, train_loader, test_lo
 
     learning_rate=1e-4
     optimizer = optim.SGD(classifier.parameters(), lr=learning_rate)
-    # scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=[40, 75], gamma=0.1)
-    # adaptive learning rate
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=10, verbose=True)
-    
+    scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=[40, 75], gamma=0.1)
     # Early stopping setup
     best_acc = 0.0
     counter = 0  # Counts epochs without improvement
@@ -206,9 +203,9 @@ def transfer_learning(args, feature_extractor, classifier, train_loader, test_lo
                 val_correct += predicted.eq(labels).sum().item()
                 val_loss += criterion(outputs, labels).item()
         
+        scheduler.step()
         val_acc = 100 * val_correct / val_total
         val_loss /= len(test_loader)
-        scheduler.step(val_acc)
 
         # Check for early stopping
         if val_acc > best_acc:
