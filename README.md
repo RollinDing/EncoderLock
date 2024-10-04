@@ -14,13 +14,16 @@ We run the EncoderLock on a server:
 - Python Version: 3.9.13
 - Pytorch Version: 1.12.1+cu102
 
-To automatically install the required packages, run following code in the conda environment:
+To automatically install the required packages, run the following code in the conda environment:
     ```conda env create -f environment.yml```
 
-### How to evaluate:
-We provide scripts and checkpoints to evaluate the experiment results.
-The saved checkpoints can be found in `modified_models`.
-These modified models are encoders with EncoderLock which shows significant accuracy degradation on the target domain (prohibited domain) but preserves a high accuracy on the source domain (authorized domain).
+### Quick Evaluation:
+We provide $12$ pre-trained encoders with supervised and unsupervised EncoderLock that is used in the results of our experiment, based on the `mnist` dataset as the source. Note that you should train the unprotected model and put it in `pretrained_models` first for further evaluation. The saved checkpoints can be found in `modified_models`.
+These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
+
+- **Step 1** Prepare for the environment, datasets, and pre-trained models.
+- **Step 2** Check the available hardened encoders in `modified_models`; Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
+- **Step 3** Run script `bash evaluate-encoder.sh`
 
 ### Directory structure:
 ```
@@ -80,7 +83,7 @@ Most of the dataset we use in the experiment can be downloaded automatically in 
 ### Pre-trained Models 
 We provide the unprotected pretrained models [here](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing)
 
-### Run Experiments:
+### Train and Test EncoderLock from scratch:
 We provide several scripts to run the experiments:
 
 ----
@@ -115,5 +118,5 @@ We provide several scripts to run the experiments:
         - `unsupervised`
         to choose the modified encoder to evaluate
 
-    - We provide $6$ pre-trained encoders with supervised and unsupervised EncoderLock that is used in our experiments results, based on the `mnist` dataset as the source. Note that you should train the unprotected model and put it in `pretrained_models' first to do the further evaluation as well. 
+
 
