@@ -18,7 +18,7 @@ To automatically install the required packages, run the following code in the co
     ```conda env create -f environment.yml```
 
 ### Quick Evaluation:
-We provide $12$ encoders with supervised and unsupervised EncoderLock that is used in the results of our experiment, based on the `mnist` dataset as the source. Note that you should train the unprotected model and put it in `pretrained_models` first for further evaluation. The saved checkpoints can be found in `modified_models`.
+We provide 12 protected encoders with supervised and unsupervised EncoderLock that is used in the results of our experiment, based on the `mnist` dataset as the source. Note that you should train the unprotected model and put it in `pretrained_models` first for further evaluation. The saved checkpoints can be found in `modified_models`.
 These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
 
 - **Step 1** Prepare for the environment, datasets, and pre-trained models.
