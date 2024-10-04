@@ -1,10 +1,14 @@
 #/bin/bash
 
+# Choose between arch [resnet18, vgg11]
+arch='resnet18'
 # Source model configuration
-arch="resnet18"
 dataset="mnist"
 # Target model configuration
 std_dataset="usps"
+# Choose between ['example-supervised', 'example-unsupervised', 'supervised', 'unsupervised']
+level='example-supervised' 
+
 
 # Training configuration
 epochs=30

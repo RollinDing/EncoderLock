@@ -22,13 +22,16 @@ from utils.data import prepare_source_data, prepare_target_data, prepare_data
 from utils.utils import *
 import logging, time, os, copy
 
+# Load the arguments
+args = parse_args()
+LEVEL = args.level
 
 def create_logging_files(args):
     """
     Create the logging files
     """
     # Create the logging directory
-    log_dir = "logs/unsupervised/" + f'evaulation-{args.arch}--{args.dataset}--{args.std_dataset}/'
+    log_dir = f"logs/{LEVEL}/" + f'evaulation-{args.arch}--{args.dataset}--{args.std_dataset}/'
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
 
@@ -78,7 +81,7 @@ def load_feature_extractor(args):
     """
     feature_extractor = build_feature_extractor(args)
     # You can select supervised or unsupervised here
-    feature_extractor_path = "modified_models/" + 'example-unsupervised/' + f'{args.arch}--{args.dataset}--{args.std_dataset}' + f'/feature_extractor.pth'
+    feature_extractor_path = "modified_models/" + f'{LEVEL}/' + f'{args.arch}--{args.dataset}--{args.std_dataset}' + f'/feature_extractor.pth'
     print(feature_extractor_path)
     if not os.path.exists(feature_extractor_path):
         exit('The feature extractor does not exist!')
@@ -290,9 +293,6 @@ def evaluate_feature_extractor(args, feature_extractor):
 
 
 if __name__ == '__main__':
-    # Load the arguments
-    args = parse_args()
-
     # Create the logging files
     create_logging_files(args)
     logging.info('Start to evaluate the feature extractor.')

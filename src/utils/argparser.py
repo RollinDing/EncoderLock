@@ -154,5 +154,7 @@ def parse_args():
     parser.add_argument('--alpha', type=float, default=0.1, help='weight for the regularization term')
     parser.add_argument('--E', type=int, default=10, help='number of epochs for optimization')
     parser.add_argument('--R', type=int, default=10, help='number of round per epoch')
+    parser.add_argument('--level', type=str, default='example-supervised', 
+                        choices=['example-supervised', 'example-unsupervised', 'supervised', 'unsupervised'], help='level of evaluation')
 
     return parser.parse_args()
