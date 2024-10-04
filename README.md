@@ -25,7 +25,7 @@ Note that you should download [unprotected models](https://drive.google.com/driv
 - **Step 2** Check the availability of protected encoders in `modified_models`;
 - **Step 3**Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
 - **Step 4** Run script
-          `bash test/evaluate-encoder.sh`
+          ```bash test/evaluate-encoder.sh```
 
 These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
 
