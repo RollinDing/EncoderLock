@@ -76,6 +76,7 @@ We provide the unprotected pretrained models [here](https://drive.google.com/dri
 
 ### Run the tests:
 We provide several scripts to run the experiments:
+
 ----
 1. Train the Supervised EncoderLock:
     - Before running the EncoderLock, make sure you have the pre-trained victim model to protect and save that in `pretrained_models`. For instance, we provide a pre-trained model checkpoint in `pretrained_models/mnist_vgg11_30`, which is fine-tuned from the pytorch pre-trained VGG11 with mnist dataset for 30 epochs.
