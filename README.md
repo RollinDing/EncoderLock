@@ -23,7 +23,7 @@ Note that you should download [unprotected models](https://drive.google.com/driv
 
 - **Step 1** Prepare for the environment, datasets, and pre-trained models.
 - **Step 2** Check the availability of protected encoders in `modified_models`;
-- **Step 3**Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
+- **Step 3** in the script `tests/evaluate-encoder` switch between level `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
 - **Step 4** Run script
 
           bash tests/evaluate-encoder.sh
@@ -74,17 +74,16 @@ We provide several scripts to run the experiments:
 
     For zero-shot EncoderLock, you need generate a synthetic dataset first.
 
+    **Output**: In the produced `.log` file, you will be able to find the running time for each steps and encoder testing accuracy for source and target domain. The final results will be listed too.
 ----
-3. Evaluate modified encoders
+3. Evaluate modified encoders: to evaluate the modified model only, we also provide a script.
     - Once you have the modified model, we offer scripts to evaluate it, simply run 
-          ```bash evaluate-encoder.sh```
+          ```bash tests/evaluate-encoder.sh```
 
-    - Change function `load_feature_extractor` in `src/evaluate/evaluate-encoder.py` line 75 to switch between 
-        - `example-supervised`
-        - `example-unsupervised`  
+    -  In tests/evaluate-encoder.sh switch between levels:
         - `supervised`
         - `unsupervised`
-        to choose the modified encoder to evaluate
+        to choose the type of modified encoder to evaluate
 
 ### Directory structure:
 ```
