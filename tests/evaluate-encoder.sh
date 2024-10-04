@@ -5,9 +5,9 @@ arch='vgg11'
 # Source model configuration
 dataset="mnist"
 # Target model configuration
-std_dataset="svhn"
+std_dataset="usps"
 # Choose between ['example-supervised', 'example-unsupervised', 'supervised', 'unsupervised']
-level='example-supervised' 
+level='example-unsupervised' 
 
 
 # Training configuration

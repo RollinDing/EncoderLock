@@ -55,11 +55,11 @@ def remove_bn_from_model(module):
 def build_model(args):
     model_name = args.arch
     if model_name == 'resnet18':
-        model = models.resnet18(pretrained=True)
+        model = models.resnet18()
         remove_bn_from_model(model)
         model.fc = nn.Linear(512, 10)
     elif model_name == 'vgg11':
-        model = models.vgg11(pretrained=True)
+        model = models.vgg11()
         num_ftrs = model.classifier[6].in_features
         model.classifier[6] = nn.Linear(num_ftrs, 10)
     return model

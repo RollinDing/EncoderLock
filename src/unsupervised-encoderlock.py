@@ -600,10 +600,10 @@ def update_critical_weights(feature_extractor, source_classifier, target_classif
 
 def get_model(model_name, number_classes):
     if model_name == 'resnet18':
-        model = models.resnet18(pretrained=True)
+        model = models.resnet18()
         remove_bn_from_model(model)
     elif model_name == 'vgg11':
-        model = models.vgg11(pretrained=True)
+        model = models.vgg11()
 
     # adapt the model to the new task 
     if model_name == 'resnet18':

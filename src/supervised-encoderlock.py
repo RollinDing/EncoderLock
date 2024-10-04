@@ -351,7 +351,7 @@ def upper_level_optimization(feature_extractor, source_classifier, target_classi
         if name in source_gradients and name in target_gradients:
             selected_weights = torch.where(param.abs()>weight_threshold)
             weight_scores[name] = (target_gradients[name].abs() / (source_gradients[name].abs() + 1e-8))[selected_weights]
-            print(name, weight_scores[name].shape)
+            # print(name, weight_scores[name].shape)
 
     # Select the weights with the highest impact (this is a simple example for selecting top N weights)
     N = args.N  # Number of weights to select
@@ -520,10 +520,10 @@ def main(args):
 
     model_name = args.arch
     if model_name == 'resnet18':
-        source_model = models.resnet18(pretrained=True)
+        source_model = models.resnet18()
         remove_bn_from_model(source_model)
     elif model_name == 'vgg11':
-        source_model = models.vgg11(pretrained=True)
+        source_model = models.vgg11()
 
     # adapt the model to the new task 
     if model_name == 'resnet18':
