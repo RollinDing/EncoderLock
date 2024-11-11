@@ -40,11 +40,15 @@ The final accuracy can also be found in the end of the logging file in `logs/`
     - the script will first probe for the source domain and then run the probing process for the target domain,
     - **STDOUT**: 
     Training the encoder on the target domain
+
     ``
     Training the downstream classifier from scratch on the source domain!
-    ==> Epoch: 0 | Loss: 2.138676404953003 | Train Accuracy: 18.73% | Val Loss: 2.0617 | Val Accuracy: 26.04% 
+
+    ==> Epoch: 0 | Loss: 2.138676404953003 | Train Accuracy: 18.73% | Val Loss: 2.0617 | Val Accuracy: 26.04%
+  
     ...
-    ==> Epoch: 64 | Loss: 0.4867952764034271 | Train Accuracy: 98.18% | Val Loss: 0.4543 | Val Accuracy: 98.03% 
+    ==> Epoch: 64 | Loss: 0.4867952764034271 | Train Accuracy: 98.18% | Val Loss: 0.4543 | Val Accuracy: 98.03%
+
 
     ==> Epoch: 65 | Loss: 0.4273190498352051 | Train Accuracy: 98.30% | Val Loss: 0.4484 | Val Accuracy: 98.15% 
 
