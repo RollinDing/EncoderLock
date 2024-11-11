@@ -18,6 +18,13 @@ To automatically install the required packages, run the following code in the co
     ```conda env create -f environment.yml```
 
 ### Quick Evaluation:
+
+In this quick evaluation, we offer pre-trained encoder's with modified weights on digits datasets. 
+For each dataset, it will take  within 5 minutes to do the evaluation steps, as we only run **20 epochs** for each domain.
+
+To train your own encoderlock, you can also follow the steps in "Quick Evaluation on the Training Procedure of EncoderLock", it may takes longer time (about 30 minutes when source domain is the MNIST and target domain is the USPS. It may take longer time for larger datasets.)
+The final accuracy can also be found in the end of the logging file in `logs/`
+
 #### Evaluation Steps:
 
 - **Step 1** Prepare for the environment, datasets, and pre-trained models. We provide 6 protected encoders with supervised and unsupervised EncoderLock. The saved checkpoints can be found in `modified_models`.
@@ -74,7 +81,7 @@ To automatically install the required packages, run the following code in the co
 
 These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
 
-#### Quick Evaluate the Training Procedure of EncoderLock
+#### Quick Evaluation on the Training Procedure of EncoderLock
 
 We provide two scripts to evaluate the training procedure of supervised EncoderLock and unsuperized EncoderLock.
 
