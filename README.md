@@ -39,33 +39,33 @@ The final accuracy can also be found in the end of the logging file in `logs/`
 - **Expected Outputs**:
     - the script will first probe for the source domain and then run the probing process for the target domain,
     - **STDOUT**: 
-    Training the encoder on the target domain
-
-    Training the downstream classifier from scratch on the source domain!
-
-    ==> Epoch: 0 | Loss: 2.138676404953003 | Train Accuracy: 18.73% | Val Loss: 2.0617 | Val Accuracy: 26.04%
-  
-    ...
-  
-    ==> Epoch: 64 | Loss: 0.4867952764034271 | Train Accuracy: 98.18% | Val Loss: 0.4543 | Val Accuracy: 98.03%
-
-
-    ==> Epoch: 65 | Loss: 0.4273190498352051 | Train Accuracy: 98.30% | Val Loss: 0.4484 | Val Accuracy: 98.15% 
-
-    Early stopping triggered.
-
-    Finish training the downstream classifier on the source domain, the best accuracy on the source domain is **98.03%**
-
-    Training the downstream classifier from scratch on the target domain!
-
-    ==> Epoch: 0 | Loss: 4.532858371734619 | Train Accuracy: 7.40% | Val Loss: 2.4023 | Val Accuracy: 6.96% 
-
-    ==> Epoch: 1 | Loss: 2.350107192993164 | Train Accuracy: 7.28% | Val Loss: 2.3876 | Val Accuracy: 7.15% 
-
-    ....
-
-    Finish training the downstream classifier on the target domain, the best accuracy on the target domain is **15.7460049170252%**
-    
+            Training the encoder on the target domain
+        
+            Training the downstream classifier from scratch on the source domain!
+        
+            ==> Epoch: 0 | Loss: 2.138676404953003 | Train Accuracy: 18.73% | Val Loss: 2.0617 | Val Accuracy: 26.04%
+          
+            ...
+          
+            ==> Epoch: 64 | Loss: 0.4867952764034271 | Train Accuracy: 98.18% | Val Loss: 0.4543 | Val Accuracy: 98.03%
+        
+        
+            ==> Epoch: 65 | Loss: 0.4273190498352051 | Train Accuracy: 98.30% | Val Loss: 0.4484 | Val Accuracy: 98.15% 
+        
+            Early stopping triggered.
+        
+            Finish training the downstream classifier on the source domain, the best accuracy on the source domain is **98.03%**
+        
+            Training the downstream classifier from scratch on the target domain!
+        
+            ==> Epoch: 0 | Loss: 4.532858371734619 | Train Accuracy: 7.40% | Val Loss: 2.4023 | Val Accuracy: 6.96% 
+        
+            ==> Epoch: 1 | Loss: 2.350107192993164 | Train Accuracy: 7.28% | Val Loss: 2.3876 | Val Accuracy: 7.15% 
+        
+            ....
+        
+            Finish training the downstream classifier on the target domain, the best accuracy on the target domain is **15.7460049170252%**
+            
     - **Logging File**: 
     We record the log for every evaluation in 
     `logs/example-superised/evaluation-{model}-{source domain}-{target domain}/`
