@@ -41,12 +41,12 @@ The final accuracy can also be found in the end of the logging file in `logs/`
     - **STDOUT**: 
     Training the encoder on the target domain
 
-    ``
     Training the downstream classifier from scratch on the source domain!
 
     ==> Epoch: 0 | Loss: 2.138676404953003 | Train Accuracy: 18.73% | Val Loss: 2.0617 | Val Accuracy: 26.04%
   
     ...
+  
     ==> Epoch: 64 | Loss: 0.4867952764034271 | Train Accuracy: 98.18% | Val Loss: 0.4543 | Val Accuracy: 98.03%
 
 
@@ -65,7 +65,7 @@ The final accuracy can also be found in the end of the logging file in `logs/`
     ....
 
     Finish training the downstream classifier on the target domain, the best accuracy on the target domain is **15.7460049170252%**
-    ``
+    
     - **Logging File**: 
     We record the log for every evaluation in 
     `logs/example-superised/evaluation-{model}-{source domain}-{target domain}/`
