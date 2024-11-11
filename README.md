@@ -78,9 +78,10 @@ The final accuracy can also be found in the end of the logging file in `logs/`
 
     - **For reproduciability**
     Running `bash tests/evaluate-encoder.sh`, we are going to reproduce the results in Table II, III in the manuscript. 
-    1. The (train from scratch) source accuracy should be $\pm 2\%$ compared with the average accuracy report in the diaginal of the table, it indicates that the source accuracy does not drop too much. 
+    1. The (train from scratch) source accuracy should be $\pm 2 %$ (depends on the evaluation epochs), compared with the average accuracy report in the diagonal of the table, it indicates that the source accuracy does not drop too much. 
     The reported accuracy can be evaluated during the training phase (not train from scratch.)
     2. The target accuracy should be **less than** the accuracy after $\Rightarrow$ in the table, indicating that the accuracy on the target domain is low.
+    3. The original accuracy can also be found in the table or you may reproduce it by running the training steps. The original model accuracy will be presented at the beginning of the logging file.
 
 
 These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
