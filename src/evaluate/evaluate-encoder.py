@@ -41,6 +41,8 @@ def create_logging_files(args):
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
+    print("Create the logging files successfully in {}".format(log_dir))
+
 class Identity(nn.Module):
     def forward(self, x):
         return x
@@ -136,7 +138,7 @@ def transfer_learning(args, feature_extractor, classifier, train_loader, test_lo
     data_volume = args.volume
     num_batches = len(train_loader)
     num_train_batches = int( data_volume * num_batches)
-    num_epochs = 100
+    num_epochs = 20
 
     feature_extractor.train()
     classifier.train()
@@ -220,10 +222,10 @@ def transfer_learning(args, feature_extractor, classifier, train_loader, test_lo
             print(f'==> Epoch: {epoch} | Loss: {loss.item()} | Train Accuracy: {100 * correct / total:.2f}% | Val Loss: {val_loss:.4f} | Val Accuracy: {val_acc:.2f}% ')
             
         if counter >= patience:
-            print("Early stopping triggered.")            
+            print("Early stopping triggered.")       
             break  # Stop the training
 
-    return best_classifier
+    return best_classifier, best_acc
 
 def do_evaluate_feature_extractor(feature_extractor, classifier, test_loader, criterion, device, model_name):
     feature_extractor.eval()
@@ -279,8 +281,13 @@ def evaluate_feature_extractor(args, feature_extractor):
 
     # transfer learning the downstream classifier
     criterion = nn.CrossEntropyLoss()
-    source_downstream_classifier = transfer_learning(args, feature_extractor, source_downstream_classifier, source_train_loader, source_test_loader, criterion, device, model_name)
-    target_downstream_classifier = transfer_learning(args, feature_extractor, target_downstream_classifier, target_train_loader, target_test_loader, criterion, device, model_name)
+    print("Training the downstream classifier from scratch on the source domain!")
+    source_downstream_classifier, best_source_acc = transfer_learning(args, feature_extractor, source_downstream_classifier, source_train_loader, source_test_loader, criterion, device, model_name)
+    print(f"Finish training the downstream classifier on the source domain, the best accuracy on the source domain is {best_source_acc}%")
+
+    print("Training the downstream classifier from scratch on the target domain!")
+    target_downstream_classifier, best_target_acc = transfer_learning(args, feature_extractor, target_downstream_classifier, target_train_loader, target_test_loader, criterion, device, model_name)
+    print(f"Finish training the downstream classifier on the target domain, the best accuracy on the target domain is {best_target_acc}%")
 
     # Evaluate the feature extractor on source domain
     logging.info("Evaluating on the source domain")

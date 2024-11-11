@@ -21,7 +21,7 @@ N=100
 # hyperparameters alpha
 alpha=1e3
 # Number of epoch for optimization 
-E=20
+E=50
 # Number of round
 R=5
 # Data volume

@@ -106,7 +106,7 @@ def evaluate_feature_extractor(feature_extractor, classifier, test_loader, crite
 
     return avg_loss, accuracy
 
-def transfer_learning(feature_extractor, classifier, train_loader, test_loader, criterion, device, model_name='vgg11', learning_rate=1e-4, verbose=True, patience=3, data_volume=0.1):
+def transfer_learning(feature_extractor, classifier, train_loader, test_loader, criterion, device, model_name='vgg11', learning_rate=1e-4, verbose=True, patience=10, data_volume=0.1):
     """
     Transfer model from source to target, training the target downstream tasks
     """
@@ -592,7 +592,7 @@ def main(args):
     best_acc_difference = src_acc-tgt_acc
     save_feature_extractor(args, best_feature_extractor)
     mask = {}
-    patience = 3
+    patience = 50
     count=0
     # Collect the total time
     total_time_start = time.time()

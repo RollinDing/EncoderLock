@@ -18,17 +18,77 @@ To automatically install the required packages, run the following code in the co
     ```conda env create -f environment.yml```
 
 ### Quick Evaluation:
-We provide 6 protected encoders with supervised and unsupervised EncoderLock. The saved checkpoints can be found in `modified_models`.
-Note that you should download [unprotected models](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing) and put them in a folder `./pretrained_models`. 
+#### Evaluation Steps:
 
-- **Step 1** Prepare for the environment, datasets, and pre-trained models.
-- **Step 2** Check the availability of protected encoders in `modified_models`;
-- **Step 3** in the script `tests/evaluate-encoder` switch between level `example-supervised` or `example-unsupervised`, for supervised or unsupervised EncoderLock.
-- **Step 4** Run script
+- **Step 1** Prepare for the environment, datasets, and pre-trained models. We provide 6 protected encoders with supervised and unsupervised EncoderLock. The saved checkpoints can be found in `modified_models`.
+- **Step 2** Check the availability of protected encoders in `modified_models`; Note that you should download [unprotected models](https://drive.google.com/drive/folders/1GOwsVl8K6qLoFWJ57geFv5oWrfcNgMOs?usp=sharing) and put them in a folder `./pretrained_models`. 
+- **Step 3** To evaluate our pretrained supervised EncoderLock, Run script `tests/evaluate-encoder`, 
+          bash tests/evaluate-encoder.sh 
+          using level=example-supervised
+- **Step 3** To evaluate our pretrained unsupervised EncoderLock, Run script `tests/evaluate-encoder`, 
+          bash tests/evaluate-encoder.sh 
+          using level=example-unsupervised
 
-          bash tests/evaluate-encoder.sh
+- **Expected Outputs**:
+    - the script will first probe for the source domain and then run the probing process for the target domain,
+    - **STDOUT**: 
+    Training the encoder on the target domain
+    ``
+    Training the downstream classifier from scratch on the source domain!
+    ==> Epoch: 0 | Loss: 2.138676404953003 | Train Accuracy: 18.73% | Val Loss: 2.0617 | Val Accuracy: 26.04% 
+    ...
+    ==> Epoch: 64 | Loss: 0.4867952764034271 | Train Accuracy: 98.18% | Val Loss: 0.4543 | Val Accuracy: 98.03% 
+
+    ==> Epoch: 65 | Loss: 0.4273190498352051 | Train Accuracy: 98.30% | Val Loss: 0.4484 | Val Accuracy: 98.15% 
+
+    Early stopping triggered.
+
+    Finish training the downstream classifier on the source domain, the best accuracy on the source domain is **98.03%**
+
+    Training the downstream classifier from scratch on the target domain!
+
+    ==> Epoch: 0 | Loss: 4.532858371734619 | Train Accuracy: 7.40% | Val Loss: 2.4023 | Val Accuracy: 6.96% 
+
+    ==> Epoch: 1 | Loss: 2.350107192993164 | Train Accuracy: 7.28% | Val Loss: 2.3876 | Val Accuracy: 7.15% 
+
+    ....
+
+    Finish training the downstream classifier on the target domain, the best accuracy on the target domain is **15.7460049170252%**
+    ``
+    - **Logging File**: 
+    We record the log for every evaluation in 
+    `logs/example-superised/evaluation-{model}-{source domain}-{target domain}/`
+    
+    In the log file, you can find:
+    1. Total number weights of the encoder;
+    2. Total number of changed weights, and the percentage of modified weights;
+    3. Loss/Accuracy on the source domain
+    4. Loss/Accuracy on the target domain.
+
+    - **For reproduciability**
+    Running `bash tests/evaluate-encoder.sh`, we are going to reproduce the results in Table II, III in the manuscript. 
+    1. The (train from scratch) source accuracy should be $\pm 2\%$ compared with the average accuracy report in the diaginal of the table, it indicates that the source accuracy does not drop too much. 
+    The reported accuracy can be evaluated during the training phase (not train from scratch.)
+    2. The target accuracy should be **less than** the accuracy after $\Rightarrow$ in the table, indicating that the accuracy on the target domain is low.
+
 
 These modified models are encoders with EncoderLock, which shows significant accuracy degradation in the target domain (prohibited domain) but preserves high accuracy in the source domain (authorized domain).
+
+#### Quick Evaluate the Training Procedure of EncoderLock
+
+We provide two scripts to evaluate the training procedure of supervised EncoderLock and unsuperized EncoderLock.
+
+- supervised EncoderLock
+Run 
+
+```
+bash train-supervised-encoderlock.sh
+```
+This script will output a log file contains testing accuracy for each 5 steps in the training process.
+The final output model will be in modified models.
+The final accuracy present in the log file can also be refer to the source/target accuracy in Table II and III.
+
+
 
 ### Datasets
 Most of the dataset we use in the experiment can be downloaded automatically in the torchvision package, 
