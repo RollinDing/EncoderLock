@@ -14,7 +14,7 @@ learning_rate=0.01
 
 # Path configuration
 data_path='./data/'
-pretrained_path=./pretrained_models/${dataset}_${arch}_${epochs}
+pretrained_path=./pretrained_models/${dataset}_${arch}_30
 
 # number of critical weights
 N=100

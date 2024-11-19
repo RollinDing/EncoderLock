@@ -14,14 +14,14 @@ learning_rate=0.01
 
 # Path configuration
 data_path='./data/'
-pretrained_path=./pretrained_models/${dataset}_${arch}_${epochs}
+pretrained_path=./pretrained_models/${dataset}_${arch}_30
 
 # Number of critical weights each epoch
 N=100
 # hyperparameters alpha
 alpha=1e3
-# Number of epoch for optimization 
-E=50
+# Number of epoch for optimization
+E=20
 # Number of round
 R=5
 # Data volume

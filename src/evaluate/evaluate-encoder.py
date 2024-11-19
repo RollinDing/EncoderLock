@@ -306,7 +306,7 @@ if __name__ == '__main__':
     feature_extractor = load_feature_extractor(args)
 
     # Number of changed weights 
-    check_weight_changed(args, feature_extractor)
+    # check_weight_changed(args, feature_extractor)
 
     # Evaluate the feature extractor
     evaluate_feature_extractor(args, feature_extractor)

@@ -139,13 +139,13 @@ def evaluate_feature_extractor(feature_extractor, classifier, test_loader, crite
     logging.info('==> Test Loss: {:.4f} | Accuracy: {:.2f}%\n'.format(avg_loss, accuracy))
     return avg_loss, accuracy
 
-def transfer_learning(feature_extractor, classifier, train_loader, test_loader, criterion, device, model_name='vgg11', learning_rate=1e-4, verbose=True, patience=3, data_volume=0.1):
+def transfer_learning(args, feature_extractor, classifier, train_loader, test_loader, criterion, device, model_name='vgg11', learning_rate=1e-4, verbose=True, patience=3, data_volume=0.1):
     """
     Transfer model from source to target, training the target downstream tasks
     """
     num_batches = len(train_loader)
     num_train_batches = int(data_volume * num_batches)
-    num_epochs = 100
+    num_epochs = args.epochs
 
     feature_extractor.train()
     classifier.train()
@@ -681,7 +681,7 @@ def main(args):
     new_target_classifier = get_classifier(model_name, target_num_classes)
     new_target_classifier.to(device)
     # train the target classifier on the target data
-    new_target_classifier = transfer_learning(feature_extractor, new_target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name, learning_rate=1e-4, data_volume=args.volume)
+    new_target_classifier = transfer_learning(args, feature_extractor, new_target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name, learning_rate=1e-4, data_volume=args.volume)
     tgt_loss, tgt_acc = evaluate_feature_extractor(feature_extractor, new_target_classifier, target_test_loader, criterion, device, model_name)
 
     # The model can't be transfer direct to the target dataset --> assume we do not have label for the target domain.
@@ -715,7 +715,7 @@ def main(args):
             new_target_classifier = get_classifier(model_name, target_num_classes)
             new_target_classifier.to(device)
             print("Retrain Target Classifier")
-            new_target_classifier = transfer_learning(feature_extractor, new_target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name, learning_rate=args.learning_rate, data_volume=args.volume)        
+            new_target_classifier = transfer_learning(args, feature_extractor, new_target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name, learning_rate=args.learning_rate, data_volume=args.volume)        
             tgt_loss, tgt_acc = evaluate_feature_extractor(feature_extractor, new_target_classifier, target_test_loader, criterion, device, model_name)
             print("Evaluate target accuracy: ", tgt_acc)
             # Save the encoder for this round 
@@ -738,12 +738,12 @@ def main(args):
     new_source_classifier = get_classifier(model_name, target_num_classes)
     new_source_classifier.to(device)
     print("Retrain Source Classifier")
-    new_source_classifier = transfer_learning(best_feature_extractor, new_source_classifier, source_train_loader, source_test_loader, criterion, device, model_name=model_name, learning_rate=1e-4, data_volume=args.volume)
+    new_source_classifier = transfer_learning(args, best_feature_extractor, new_source_classifier, source_train_loader, source_test_loader, criterion, device, model_name=model_name, learning_rate=1e-4, data_volume=args.volume)
 
     new_target_classifier = get_classifier(model_name, target_num_classes)
     new_target_classifier.to(device)
     print("Retrain Target Classifier")
-    new_target_classifier = transfer_learning(best_feature_extractor, new_target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name, learning_rate=1e-4, data_volume=args.volume)
+    new_target_classifier = transfer_learning(args, best_feature_extractor, new_target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name, learning_rate=1e-4, data_volume=args.volume)
     
     logging.info("Retraining Evaluation: \n")
 

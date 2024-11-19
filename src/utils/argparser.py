@@ -15,7 +15,7 @@ def parse_args():
     parser.add_argument(
         '--dataset',
         type=str,
-        choices=['cifar10', 'cifar100', 'imagenet', 'svhn', 'stl10', 'mnist', 'usps', 'mnistm', 'syn', 'fakemnist', 'GTSRB', 'emnist', 'military'],
+        choices=['cifar10', 'cifar100', 'imagenet', 'svhn', 'stl10', 'mnist', 'usps', 'mnistm', 'syn', 'fakemnist', 'GTSRB', 'emnist', 'military', 'imagenette', 'imagewoof'],
         help='Choose between Cifar10/100 and ImageNet, and digits dataset.')
 
     parser.add_argument(
@@ -155,6 +155,6 @@ def parse_args():
     parser.add_argument('--E', type=int, default=10, help='number of epochs for optimization')
     parser.add_argument('--R', type=int, default=10, help='number of round per epoch')
     parser.add_argument('--level', type=str, default='example-supervised', 
-                        choices=['example-supervised', 'example-unsupervised', 'supervised', 'unsupervised'], help='level of evaluation')
+                        choices=['example-supervised', 'example-unsupervised', 'supervised', 'unsupervised', 'example-imagenette-military'], help='level of evaluation')
 
     return parser.parse_args()

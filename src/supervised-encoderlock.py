@@ -106,13 +106,13 @@ def evaluate_feature_extractor(feature_extractor, classifier, test_loader, crite
 
     return avg_loss, accuracy
 
-def transfer_learning(feature_extractor, classifier, train_loader, test_loader, criterion, device, model_name='vgg11', learning_rate=1e-4, verbose=True, patience=10, data_volume=0.1):
+def transfer_learning(args, feature_extractor, classifier, train_loader, test_loader, criterion, device, model_name='vgg11', learning_rate=1e-4, verbose=True, patience=10, data_volume=0.1):
     """
     Transfer model from source to target, training the target downstream tasks
     """
     num_batches = len(train_loader)
     num_train_batches = int(data_volume * num_batches)
-    num_epochs = 100
+    num_epochs = args.epochs
 
     feature_extractor.train()
     classifier.train()
@@ -577,7 +577,7 @@ def main(args):
     # Transfer on the target data 
     target_feature_extractor = copy.deepcopy(feature_extractor)
 
-    target_classifier = transfer_learning(target_feature_extractor, target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name)
+    target_classifier = transfer_learning(args,target_feature_extractor, target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name)
     tgt_loss, tgt_acc = evaluate_feature_extractor(target_feature_extractor, target_classifier, target_test_loader, criterion, device, model_name=model_name)
     
     torch.cuda.empty_cache()
@@ -647,7 +647,7 @@ def main(args):
         print("Retrain Target Classifier")
         logging.info("Self-challenging retraining Target Classifier: \n")
         start_time = time.time()
-        new_target_classifier = transfer_learning(feature_extractor, new_target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name, learning_rate=1e-5, data_volume=args.volume)
+        new_target_classifier = transfer_learning(args, feature_extractor, new_target_classifier, target_train_loader, target_test_loader, criterion, device, model_name=model_name, learning_rate=1e-5, data_volume=args.volume)
         end_time = time.time()
         logging.info(f"Time for retraining target classifier: {end_time-start_time} \n")
 
