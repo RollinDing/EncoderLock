@@ -195,3 +195,16 @@ EncoderLock
 ```
 
 
+### Reference
+```
+@article{protecting2024,
+  author = {Ruyi Ding, Tong Zhou, Lili Su, Aidong Adam Ding, Xiaolin Xu, Yunsi Fei}, 
+  title = {Probe-Me-Not: Protecting Pre-trained Encoders from Malicious Probing},
+  journal = {arXiv preprint arXiv:2411.12508},
+  year = {2024},
+  url = {https://arxiv.org/abs/2411.12508}
+}
+```
+
+### License
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
