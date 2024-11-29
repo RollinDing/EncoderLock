@@ -1,5 +1,6 @@
 ## Artifacts: 
 ### Probe-Me-NOT: Protecting Pre-trained Encoders from Malicious Probing
+### Zenodo DOI:  10.5281/zenodo.14248909
 
 ### Abstract
 Adapting pre-trained deep learning models to customized tasks has become a popular strategy for developers facing limited computational resources and data volume. In this work, we propose **EncoderLock**, a novel applicability authorization method designed to prevent malicious probing, i.e., fine-tuning downstream heads of pre-trained encoders on prohibited domains. We introduce three levels of EncoderLocks tailored to different dataset availabilities: supervised, unsupervised, and zero-shot EncoderLocks. Specifically, supervised EncoderLocks leverage labeled prohibited domains, while unsupervised and zero-shot EncoderLocks focus on prohibited or synthetic datasets without labels. Accordingly, in this package, we provide the source code for both scenarios—training with and without labeled datasets. After preparing the datasets and the victim pre-trained models, we recommend running the scripts in the `test` directory, where we offer examples of training and evaluating EncoderLock for both types of datasets.
